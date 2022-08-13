@@ -21,8 +21,19 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 *zipcode esta dentro del Array address
 
-5. Mostrar restaurantes que están en el Bronx
+5. Mostrar restaurantes que están en el Bronx:
 
 >> db.restaurantes.find({borough:"Bronx"}).pretty()
 
-6. Los 5 primeros que están en el Bronx
+6. Los 5 primeros que están en el Bronx:
+
+>> db.restaurantes.find({borough:"Bronx"}).pretty().limit(5)
+
+7. Los siguienetes después de los 5 primeros:
+
+>> db.restaurantes.find({borough:"Bronx"}).pretty().skip(5)
+
+8. Restaurantes con un score mayor de 90:
+
+>> db.restaurantes.find({grades:{$in:[0,1,2,3,4,5]score:{$gte:1}}})
+db.restaurantes.find({grades:{0:{score:{$gte:7}}})
