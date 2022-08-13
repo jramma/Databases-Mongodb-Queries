@@ -41,3 +41,11 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 >> db.restaurantes.find({$and:[{"grades.score": { $gt: 80 }} ,{ "grades.score": {$lt: 100}}]})
 
+10. Mostrar lista de restaurantes que se encuentran a una latitud menor de -95.754168:
+
+>> db.restaurantes.find({"address.coord":{$gte:-95.754168}},{id:0})
+
+11. Restaurantes que cusine no es 'American', cualificación superior a 70 y longitud menor a -65.754168:
+
+>> 
+
