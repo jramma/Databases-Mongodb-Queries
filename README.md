@@ -35,5 +35,9 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 8. Restaurantes con un score mayor de 90:
 
->> db.restaurantes.find({grades:{$in:[0,1,2,3,4,5]score:{$gte:1}}})
-db.restaurantes.find({grades:{0:{score:{$gte:7}}})
+>> db.restaurantes.find({ "grades.score": { $gt: 90 } })
+
+9. Restaurantes con un score mayor de 80 pero menor de 100:
+
+>> db.restaurantes.find({$and:[{"grades.score": { $gt: 80 }} ,{ "grades.score": {$lt: 100}}]})
+
