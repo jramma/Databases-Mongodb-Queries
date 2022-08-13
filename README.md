@@ -47,5 +47,5 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 11. Restaurantes que cusine no es 'American', cualificación superior a 70 y longitud menor a -65.754168:
 
->> 
+db.restuarantes.find($and:[$nor{cusine:"American"}, {"grades.score":{$gt:70}},{"address.coord":{$gte:-65.754168}},{id:1}])
 
