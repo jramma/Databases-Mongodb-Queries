@@ -45,7 +45,12 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 >> db.restaurantes.find({"address.coord":{$gte:-95.754168}},{id:0})
 
-11. Restaurantes que cusine no es 'American', cualificación superior a 70 y longitud menor a -65.754168:
+11. Restaurantes que cuisine no es 'American', cualificación superior a 70 y longitud menor a -65.754168:
 
-db.restuarantes.find({$and:[$nor:{cusine:"American"}, {"grades.score":{$gt:70}},{"address.coord":{$gte:-65.754168}},{id:1}]})
+>> db.restaurantes.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.1":{$lt:-65.754168}})
 
+12. Restaurantes que cuisine no es 'American ', marcador mayor de 70 y longitud menor a -65.754168, sin usar $and:
+
+>> db.restaurantes.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.1":{$lt:-65.754168}})
+
+13. 
