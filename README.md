@@ -71,9 +71,33 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 17. Restaurantes del Bronx que hayan hecho algún plato chino o americano:
 
-db.restaurantes.find({borough:"Bronx", $or:[{cuisine:"American "},{cuisine:"Chinese"}]})
+>> db.restaurantes.find({borough:"Bronx", $or:[{cuisine:"American "},{cuisine:"Chinese"}]})
 
-18. Restaurantes que pertenezcan Staten Island o Queens o Bronx o Brooklyn
+18. Restaurantes que pertenezcan Staten Island , Queens, Bronx, Brooklyn y filtrar por restaurant_id, name, borough y cuisine:
+
+>> db.restaurantes.find({$or:[{borough:"Staten Island"},{borough:"Queens"},{borough:"Bronx"},{borough:"Brooklyn"}]}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+ 
+19. Restaurantes que NO pertenezcan Staten Island , Queens, Bronx, Brooklyn y filtrar por restaurant_id, name, borough y cuisine:
+
+>> db.restaurantes.find({$nor:[{borough:"Staten Island"},{borough:"Queens"},{borough:"Bronx"},{borough:"Brooklyn"}]}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+20. Restaurantes que el marcador no sea mayor de 10 y filtrar por restaurant_id, name, borough y cuisine:
+
+>> db.restaurantes.find({"grades.score":{$not:{$gt:10}}}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+21. Restaurants que preparan pez excepto 'American' y 'Chinees' o que el nombre del restaurante comience por 'Wil'
+y filtrar por restaurant_id, name, borough y cuisine:
+
+>> db.restaurantes.find({$nor:[{cuisine:"American "},{cuisine:"Chinees"},{cuisine:"Donuts"},{cuisine:/^Ice/},{name:/^Wil/}]}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+22. 
+
+
+
+
+
+
+
 
 
 
