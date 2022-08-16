@@ -47,10 +47,36 @@ Dada una base de datos (restaurantes.json) hago una serie de búsquedas posibles
 
 11. Restaurantes que cuisine no es 'American', cualificación superior a 70 y longitud menor a -65.754168:
 
->> db.restaurantes.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.1":{$lt:-65.754168}})
+>> db.restaurantes.find({$and:[{cuisine:{$ne:"American "}},{"grades.score":{$gt:70}},{"address.coord.1":{$lt:-65.754168}}]})
 
 12. Restaurantes que cuisine no es 'American ', marcador mayor de 70 y longitud menor a -65.754168, sin usar $and:
 
 >> db.restaurantes.find({cuisine:{$ne:"American "},"grades.score":{$gt:70},"address.coord.1":{$lt:-65.754168}})
 
-13. 
+13. Restaurantes que cuisine no es es 'American ', que obtuvieron un grado 'A' y no pertenecen a Brooklyn. Ordenar resultado por cuisine de forma descendiente.
+
+>> db.restaurantes.find({cuisine:{$ne:"American "},"grades.grade":"A", borough:{$ne:"Brooklyn"}}).sort({cuisine:-1})
+
+14. Buscar los restaurantes que tienen 'Wil' al principio del nombre, filtrar por restaurant_id, name, borough i cuisine:
+
+>> db.restaurantes.find({name:/^Wil/}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+15. Buscar los restaurantes que tienen 'ces' al final del nombre, filtrar por restaurant_id, name, borough i cuisine:
+
+>> db.restaurantes.find({name:/ces$/}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+16. Buscar los restaurantes que contengan 'Reg' en el nombre, filtrar por restaurant_id, name, borough i cuisine:
+
+>> db.restaurantes.find({name:/Reg/}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
+
+17. Restaurantes del Bronx que hayan hecho algún plato chino o americano:
+
+db.restaurantes.find({borough:"Bronx", $or:[{cuisine:"American "},{cuisine:"Chinese"}]})
+
+18. Restaurantes que pertenezcan Staten Island o Queens o Bronx o Brooklyn
+
+
+
+
+
+
