@@ -90,17 +90,49 @@ y filtrar por restaurant_id, name, borough y cuisine:
 
 >> db.restaurantes.find({$nor:[{cuisine:"American "},{cuisine:"Chinees"},{cuisine:"Donuts"},{cuisine:/^Ice/},{name:/^Wil/}]}, {restaurant_id:1, name:1, borough:1, cuisine:1}).pretty()
 
-22. 
+22. Restaurantes con nota 'A', score 11 y en la fecha ISODate "2014-08-11T00:00:00Z":
+
+>> db.restaurantes.find({$and:[ {"grades.grade":"A"}, {"grades.score":11}, {"grades.date":ISODate ("2014-08-11T00:00:00Z")}]}, {restaurant_id:1, name:1, grades:1})
+
+23. Consultar restaurant_id, name y grades donde los restaurantes, el 2n elemento de variedad de grados contiene un grado de "A" i marcador 9 sobre un ISODate "2014-08-11T00:00:00Z".
+
+>> db.restaurantes.find({ "grades.2.grade":"A", "grades.2.score":9, "grades.2.date":ISODate ("2014-08-11T00:00:00Z")}, {restaurant_id:1, name:1, grades:1})
+
+24. Consulta para encontrar el restaurant_id, name, adreça y ubicació geogràfica pera aquellos restaurantes dónde el segundo elemento del array coord contiene un valor que es más de 42 y menor a 52.
+
+>> db.restaurantes.find({$and:[{"address.coord.1":{$gt:42}},{"address.coord.1":{$lt:52}}]} , {estaurant_id:1, name:1, adreça:1, "address.coord":1} )
+
+25. Consulta para organizar según nombre de los restaurants en ordren ascendente:
+
+>> db.restaurantes.find({},{name:1}).sort({name:1})
+
+26. Consulta para organizar según nombre de los restaurants en ordren descendente:
+
+>> db.restaurantes.find({},{name:1}).sort({name:-1})
+
+27. Escriu una consulta per organitzar el nom de la cuisine en ordre ascendent i pel mateix barri de cuisine. Ordre descendent.
+
+>> db.restaurantes.find({},{name:1, borough:1}).sort({ borough:-1, name:-1})
 
 
+28. Consulta que muestra todas las direcciones que no tienen calle:
+
+>> db.restaurantes.find({"address.street":{$exists:false}})
+
+29. Consulta que selecciona todos los documentos en la colección de restaurantes donde el valor del campo coord es Double.
+
+>> db.restaurantes.find({"address.coord":{$type:"double"}})
 
 
+30. Restaurant_id, name y grade para aquellos restaurantes que devuelvan 0 como resto después de dividir el marcador por 7.
+
+>> db.restaurantes.find({$divide:{"grades.score",7},0}, {restaurant_id:1,name:1,"Gradess.grade":1})
+
+31. Name, borough, longitud, altitud y cuisine para aquellos restaurantes que contienen 'mon' como tres letras en algun lugar de su nombre:
+
+>> db.restaurantes.find({name:/m/,name:/o/,name:/n/}, {name:1,borough:1,"address.coord":1,cuisine:1})
 
 
+32. Name, borough, longitud, latitud y cuisine para aquellos restaurantes que contienen 'Mad' como primeras tres letras de su nombre:
 
-
-
-
-
-
-
+>> db.restaurantes.find({name:/^Mad/}, {name:1,borough:1,"address.coord":1,cuisine:1})
